@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><title>runner</title>
+<script type="importmap">{"imports":{"@wasm-oj/core":"/runtimes/wasm-oj/core/index.js","@wasm-oj/contracts":"/runtimes/wasm-oj/contracts/index.js","es-module-lexer":"/runtimes/wasm-oj/es-module-lexer.js","fflate":"/runtimes/wasm-oj/fflate.js"}}</script>
+<script type="module">
+import { runWoj, runCs, joinCs, runWithHarness } from "/src/compiled.js";
+window.runJob = async j => j.body !== undefined ? runWithHarness(j.lang, j.files, j.body) : j.lang === "cs" ? runCs(j.source ?? joinCs(j.parts)) : runWoj(j.lang, j.entry, j.files);
+window.ready = true;
+</script>

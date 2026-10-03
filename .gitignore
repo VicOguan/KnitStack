@@ -1,0 +1,6 @@
+node_modules/
+dist/
+public/runtimes/
+.env
+.env.local
+tests/sim-results.txt

@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KnitStack: a free, project-based coding academy</title>
+<meta name="description" content="Learn to code from junior to senior for free. Animated explainers, a Refresher from variables to OOP, and starter projects where you write the core logic. JavaScript, TypeScript, Python, Java, C# and Go, all in your browser.">
+<meta name="theme-color" content="#0A0B0F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="KnitStack">
+<meta property="og:description" content="A free, self-paced coding academy. Watch the idea, build the project, pass the review.">
+<!-- Java and Go runtimes resolve these bare imports (see src/compiled.js) -->
+<script type="importmap">{"imports":{
+  "@wasm-oj/core":"/runtimes/wasm-oj/core/index.js",
+  "@wasm-oj/contracts":"/runtimes/wasm-oj/contracts/index.js",
+  "es-module-lexer":"/runtimes/wasm-oj/es-module-lexer.js",
+  "fflate":"/runtimes/wasm-oj/fflate.js"}}</script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="KnitStack home">
+      <svg viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="8" fill="none" stroke="#2CC9DB" stroke-width="2"/><path d="M7 9l4 10 3-6 3 6 4-10" fill="none" stroke="#F6C431" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      KnitStack
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#home">Home</a>
+      <a href="#refresher">Refresher</a>
+      <a href="#path">Path</a>
+      <a href="#learn">Explainers</a>
+      <a href="#lab">Lab</a>
+      <a href="#about">About</a>
+    </nav>
+    <label class="lang-pick"><span class="sr">Programming language</span>
+      <select id="langSel" aria-label="Programming language">
+        <option value="js">JavaScript</option>
+        <option value="ts">TypeScript</option>
+        <option value="py">Python</option>
+        <option value="java">Java</option>
+        <option value="cs">C#</option>
+        <option value="go">Go</option>
+      </select></label>
+    <span class="xp" title="Experience points earned"><b id="xpVal">0</b> XP</span>
+    <button class="btn btn-ghost btn-sm" id="authBtn" hidden>Sign in</button>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="page wrap" id="p-home">
+  <div class="hero stack center">
+    <span class="hand muted">Self-paced dev academy</span>
+    <h1><span class="c-yellow">Junior</span> to <span class="c-blue">Senior</span></h1>
+    <p class="sub">Learn one idea at a time, build it into a real project, <span class="underline">and get it past a code review.</span></p>
+  </div>
+
+  <div class="vs" aria-label="Junior versus senior developer">
+    <div class="col left">
+      <h3 class="c-yellow">Junior</h3>
+      <div class="row neon yellow">Makes it work</div>
+      <div class="row neon yellow">Fixes the bug</div>
+      <div class="row neon yellow">Reads the docs</div>
+      <div class="row neon yellow">Ships a feature</div>
+    </div>
+    <div class="vsbadge">VS</div>
+    <div class="col right">
+      <h3 class="c-blue">Senior</h3>
+      <div class="row neon">Makes it last</div>
+      <div class="row neon">Finds root cause</div>
+      <div class="row neon">Writes the docs</div>
+      <div class="row neon">Ships the system</div>
+    </div>
+  </div>
+  <div class="ctas">
+    <a class="btn btn-main" href="#learn">Watch an explainer</a>
+    <a class="btn btn-cyan" href="#lab">Try a lab ticket</a>
+    <a class="btn btn-ghost" href="#path">See the path</a>
+    <a class="btn btn-ghost" href="#refresher">Brush up on basics</a>
+  </div>
+
+  <div class="stack" style="margin-top:64px">
+    <h2 class="sec-title" style="margin:0">Pick your language</h2>
+    <p class="muted">Lessons, starter projects, TODOs and tests all switch to the language you pick. You can change it any time from the top bar.</p>
+    <div class="lang-grid" id="langGrid" role="group" aria-label="Choose a programming language"></div>
+  </div>
+
+  <div class="stack" style="margin-top:56px">
+    <h2 class="sec-title" style="margin:0">How you get there</h2>
+    <div class="how">
+      <div class="neon cyan"><span class="hand c-cyan">Step 1</span><b class="c-cyan">Watch</b><p class="muted">A short animated diagram shows the idea moving, one step at a time.</p></div>
+      <div class="neon"><span class="hand c-blue">Step 2</span><b class="c-blue">Build</b><p class="muted">Open a starter project. The boilerplate is done. You write the core logic.</p></div>
+      <div class="neon yellow"><span class="hand c-yellow">Step 3</span><b class="c-yellow">Test</b><p class="muted">Tests grade your work the moment you run it, with plain-English failures.</p></div>
+      <div class="neon purple"><span class="hand c-purple">Step 4</span><b class="c-purple">Review</b><p class="muted">Read a pull request the way a senior does and catch what would break in production.</p></div>
+    </div>
+  </div>
+
+  <div class="home-split" style="margin-top:56px">
+    <div class="stack">
+      <h2 class="sec-title" style="margin:0">Four levels, fourteen projects</h2>
+      <p class="muted">Each dot is a project. Finish one and it lights up. Every level ends with work that would pass a real code review at that seniority.</p>
+    </div>
+    <div class="win" aria-label="Example terminal session">
+      <div class="win-bar"><i></i><i></i><i></i><span>terminal</span></div>
+      <div class="win-body">
+<div><span class="muted">$</span> ks pick KS-101</div>
+<div><span class="c-yellow">ticket</span> Cart total is wrong at checkout</div>
+<div><span class="muted">$</span> ks test</div>
+<div><span class="c-red">✗</span> sums qty × price</div>
+<div><span class="muted">$</span> ks test</div>
+<div><span class="c-green">✓</span> 3 of 3 passing  <span class="c-yellow">+50 XP</span></div>
+<div><span class="muted">$</span> ks review <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ladder" id="ladder" style="margin-top:22px"></div>
+</section>
+
+<!-- PATH -->
+<section class="page wrap" id="p-path" hidden>
+  <div class="stack center">
+    <span class="hand muted">The learning path</span>
+    <h2>Every project a little <span class="c-yellow">harder</span> than the last</h2>
+    <p class="sub">Open a project to read its ticket.</p>
+  </div>
+  <a class="rf-banner neon purple" href="#refresher"><span><b class="c-purple">New to code, or rusty?</b> <span class="muted">Start with the Refresher: nine lessons from variables to polymorphism.</span></span><span class="btn btn-ghost btn-sm">Open Refresher</span></a>
+  <div id="levels" style="margin-top:32px"></div>
+</section>
+
+<!-- EXPLAINERS -->
+<section class="page wrap" id="p-learn" hidden>
+  <div class="stack center">
+    <span class="hand muted">Explainers · 8 concepts, animated</span>
+    <h2 id="learnTitle"></h2>
+    <p class="sub" id="learnSub"></p>
+  </div>
+  <div class="rf-list" id="exList" role="group" aria-label="Choose an explainer"></div>
+  <div id="exStage"></div>
+  <div id="exInfo"></div>
+  <template id="tpl-secrets"><svg viewBox="0 0 640 440" role="img" aria-label="Diagram of a payment service in a Kubernetes cluster calling Stripe">
+          <defs>
+            <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E6E9EF"/></marker>
+            <marker id="arwR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#FF5A5A"/></marker>
+            <marker id="arwY" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#F6C431"/></marker>
+          </defs>
+
+          <!-- customer phone -->
+          <g>
+            <rect x="34" y="22" width="92" height="118" rx="12" fill="#121419" stroke="#3A3F4C" stroke-width="1.5"/>
+            <text x="80" y="62" text-anchor="middle" class="head" fill="#F3F5F9" font-size="17">$18.40</text>
+            <rect x="48" y="90" width="64" height="28" rx="6" fill="#F27B3B"/>
+            <text x="80" y="109" text-anchor="middle" class="head" fill="#fff" font-size="13">Pay</text>
+            <text x="80" y="160" text-anchor="middle" fill="#9BA1AE" font-size="11" letter-spacing="1.5">CUSTOMER</text>
+          </g>
+
+          <!-- developer + app.js (step 3+) -->
+          <g class="fade" data-from="3">
+            <circle cx="214" cy="44" r="11" fill="none" stroke="#F3F5F9" stroke-width="2.5"/>
+            <path d="M194 82 q20 -30 40 0" fill="none" stroke="#F3F5F9" stroke-width="2.5"/>
+            <text x="214" y="104" text-anchor="middle" fill="#9BA1AE" font-size="11" letter-spacing="1.5">DEVELOPER</text>
+            <rect x="262" y="20" width="250" height="70" rx="8" fill="#15171D" stroke="#3A3F4C"/>
+            <rect x="262" y="20" width="250" height="20" rx="8" fill="#1B1E25"/>
+            <circle cx="276" cy="30" r="4" fill="#FF5F57"/><circle cx="289" cy="30" r="4" fill="#FEBC2E"/><circle cx="302" cy="30" r="4" fill="#28C840"/>
+            <text x="316" y="34" class="mono" fill="#9BA1AE" font-size="10">app.js</text>
+            <text x="276" y="68" class="mono" fill="#F3F5F9" font-size="13">console.log(process.env)</text>
+          </g>
+
+          <!-- stripe -->
+          <g>
+            <text x="590" y="36" text-anchor="middle" fill="#F3F5F9" font-size="12" letter-spacing="1.5">STRIPE</text>
+            <circle cx="590" cy="72" r="24" fill="#fff"/>
+            <text x="590" y="81" text-anchor="middle" class="head" fill="#635BFF" font-size="26">S</text>
+          </g>
+
+          <!-- cluster line -->
+          <line x1="20" y1="188" x2="620" y2="188" stroke="#3A3F4C" stroke-width="1.5"/>
+          <rect x="34" y="178" width="88" height="20" fill="#07080B"/>
+          <text x="78" y="193" text-anchor="middle" fill="#9BA1AE" font-size="11" letter-spacing="1.5">⎈ CLUSTER</text>
+
+          <!-- namespace -->
+          <rect x="24" y="208" width="596" height="222" rx="12" fill="none" stroke="#3A3F4C" stroke-dasharray="6 6"/>
+          <text x="44" y="230" fill="#5D6370" font-size="11" letter-spacing="1.5">NAMESPACE: SHOP</text>
+
+          <!-- secret (step 4) -->
+          <g class="fade" data-from="4">
+            <rect x="44" y="248" width="180" height="120" rx="12" fill="rgba(246,196,49,.08)" stroke="#F6C431" stroke-width="1.5"/>
+            <text x="60" y="272" fill="#F6C431" font-size="13" letter-spacing="1.5">SECRET</text>
+            <circle cx="104" cy="316" r="11" fill="none" stroke="#F6C431" stroke-width="2.5"/>
+            <path d="M115 316 h40 m-10 0 v10 m-12 -10 v8" fill="none" stroke="#F6C431" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="134" y="352" text-anchor="middle" class="mono" fill="#F6C431" font-size="10">stripe-key · RBAC</text>
+          </g>
+
+          <!-- payment pod -->
+          <g>
+            <rect x="290" y="240" width="314" height="174" rx="12" fill="rgba(44,201,219,.06)" stroke="#2CC9DB" stroke-width="1.8"/>
+            <text x="308" y="266" fill="#2CC9DB" font-size="15" letter-spacing="1.5">PAYMENT</text>
+          </g>
+          <!-- env window (step 2+) -->
+          <g class="fade" data-from="2">
+            <rect x="306" y="278" width="282" height="86" rx="8" fill="#15171D" stroke="#3A3F4C"/>
+            <rect x="306" y="278" width="282" height="20" rx="8" fill="#1B1E25"/>
+            <circle cx="320" cy="288" r="4" fill="#FF5F57"/><circle cx="333" cy="288" r="4" fill="#FEBC2E"/><circle cx="346" cy="288" r="4" fill="#28C840"/>
+            <text x="360" y="292" class="mono" fill="#9BA1AE" font-size="10">env</text>
+            <text x="318" y="322" class="mono" fill="#F3F5F9" font-size="11.5">STRIPE_API_KEY</text>
+            <rect x="436" y="308" width="140" height="22" rx="5" id="keyChip" fill="#F6C431"/>
+            <text x="506" y="323" text-anchor="middle" class="mono" fill="#0A0B0F" font-size="11" id="keyText">sk_live_51Hx90p</text>
+            <text x="318" y="350" class="mono" fill="#F3F5F9" font-size="11.5">PORT</text>
+            <text x="436" y="350" class="mono" fill="#F3F5F9" font-size="11.5">8080</text>
+          </g>
+          <!-- leak log (step 3 only) -->
+          <g class="fade" data-from="3" data-until="3">
+            <text x="306" y="392" class="mono" fill="#FF5A5A" font-size="11">LOG  STRIPE_API_KEY=sk_live_51Hx90p</text>
+            <text x="306" y="406" class="mono" fill="#9BA1AE" font-size="9.5">shipped to 3 log tools · 40 people can read it</text>
+          </g>
+          <g class="fade" data-from="4">
+            <text x="306" y="398" class="mono" fill="#47DB86" font-size="11">LOG  STRIPE_API_KEY=[mounted secret]</text>
+          </g>
+
+
+          <!-- base64 warning (step 6) and rotation (step 7) -->
+          <g class="fade" data-from="5" data-until="5">
+            <rect x="44" y="380" width="180" height="34" rx="8" fill="rgba(255,90,90,.12)" stroke="#FF5A5A"/>
+            <text x="134" y="394" text-anchor="middle" class="mono" fill="#FF5A5A" font-size="9.5">c2tfbGl2ZV81MUh4OTBw</text>
+            <text x="134" y="408" text-anchor="middle" fill="#FF5A5A" font-size="10" letter-spacing="1">BASE64 IS NOT ENCRYPTION</text>
+          </g>
+          <g class="fade" data-from="6">
+            <rect x="44" y="380" width="180" height="34" rx="8" fill="rgba(71,219,134,.12)" stroke="#47DB86"/>
+            <text x="134" y="394" text-anchor="middle" class="mono" fill="#47DB86" font-size="9.5">encrypted at rest · KMS</text>
+            <text x="134" y="408" text-anchor="middle" fill="#47DB86" font-size="10" letter-spacing="1">↻ ROTATED EVERY 30 DAYS</text>
+          </g>
+          <!-- flows -->
+          <path class="flow" data-flow="0" d="M126 82 H250 V320 H288" stroke="#E6E9EF" marker-end="url(#arw)"/>
+          <path class="flow" data-flow="1" d="M560 240 V100" stroke="#E6E9EF" marker-end="url(#arw)"/>
+          <path class="flow" data-flow="3" d="M440 90 V236" stroke="#FF5A5A" marker-end="url(#arwR)"/>
+          <path class="flow" data-flow="4" d="M224 300 H288" stroke="#F6C431" marker-end="url(#arwY)"/>
+          <circle id="packet" r="5" fill="#F27B3B" opacity="0"/>
+        </svg></template>
+</section>
+
+<!-- REFRESHER -->
+<section class="page wrap" id="p-refresher" hidden>
+  <div class="stack center">
+    <span class="hand muted">Refresher · before Apprentice</span>
+    <h2><span class="c-yellow">Basics</span> to <span class="c-purple">OOP</span></h2>
+    <p class="sub">Nine short lessons. Watch the code run line by line, then fill in the missing piece.</p>
+    <span class="hand muted" id="rfProgress"></span>
+  </div>
+  <div class="rf-list" id="rfList"></div>
+
+  <div class="rf-stage">
+    <div class="rf-player neon cyan">
+      <div class="rf-head">
+        <h3 id="rfTitle"></h3>
+        <p class="muted" id="rfIdea"></p>
+      </div>
+      <div class="rf-grid">
+        <div class="win"><div class="win-bar"><i></i><i></i><i></i><span id="rfFileName">lesson.js</span></div><div class="rf-code" id="rfCode"></div></div>
+        <div class="rf-memwrap"><span class="hand muted">Memory</span><div class="rf-mem" id="rfMem"></div></div>
+      </div>
+      <div class="rf-out"><span class="hand muted">Output</span><div id="rfOut" class="mono"></div></div>
+      <div class="rf-caption">
+        <span class="stepno" id="rfStep"></span>
+        <p id="rfNote"></p>
+        <div class="controls"><button class="btn btn-ghost btn-sm" id="rfPrev">Back</button><button class="btn btn-main btn-sm" id="rfNext">Next</button></div>
+      </div>
+    </div>
+
+    <div class="rf-ex neon yellow">
+      <div class="rf-head"><span class="hand c-yellow">Your turn · fill in the TODO</span><p id="rfTask" style="font-weight:700"></p></div>
+      <div class="win" style="border-radius:0;border-inline:0">
+        <div class="win-bar"><i></i><i></i><i></i><span id="rfExName">exercise.js</span></div>
+        <div class="editor" style="min-height:240px"><div class="gutter" id="rfGutter"></div><textarea class="code" id="rfEditor" spellcheck="false" aria-label="Exercise code" style="min-height:240px"></textarea></div>
+      </div>
+      <div class="bar"><button class="btn btn-main btn-sm" id="rfRun">Check my code</button><button class="btn btn-ghost btn-sm" id="rfReset">Reset</button></div>
+      <div class="results" id="rfResults"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section class="page wrap" id="p-lab" hidden>
+  <div class="stack center">
+    <span class="hand muted">The lab</span>
+    <h2>The project is built. <span class="c-yellow">The core is yours.</span></h2>
+    <p class="sub">Every session starts from a working starter project. You write the logic that makes it run.</p>
+  </div>
+  <div class="session" aria-label="What is given versus what you write">
+    <div class="side-box neon" style="--c:var(--line-2)"><b class="hand muted" style="font-size:.95rem">Given</b><ul><li>HTML, CSS and page layout</li><li>Data, fake APIs and wiring</li><li>The tests that grade you</li></ul></div>
+    <div class="vsbadge" style="margin-inline:-10px;z-index:1">VS</div>
+    <div class="side-box neon yellow"><b class="hand c-yellow" style="font-size:.95rem">Yours</b><ul><li>The core functions, marked TODO</li><li>Make the tests pass</li><li>Watch the live app start working</li></ul></div>
+  </div>
+  <div class="lab">
+    <div class="tasks" id="tasks" role="group" aria-label="Lab tickets"></div>
+    <div class="bench neon cyan" id="bench"></div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="page wrap" id="p-about" hidden>
+  <div class="stack center">
+    <span class="hand muted">About</span>
+    <h2>Free, and <span class="c-yellow">built to be used</span></h2>
+    <p class="sub">KnitStack is a free, self-paced coding academy. No trial, no paywall, no ads.</p>
+  </div>
+  <div class="plan-grid" style="margin-top:30px">
+    <div class="neon cyan"><h3>How it works</h3><ul>
+      <li>Start with the Refresher if you're new or rusty: nine lessons from variables to polymorphism.</li>
+      <li>Each Lab ticket hands you a working starter project. You write the core logic and the tests tell you when it's right.</li>
+      <li>Explainers show one idea at a time as a diagram you can step through, with a short quiz at the end.</li>
+      <li>Everything runs in your browser, including the compilers. Your code never leaves your machine.</li>
+    </ul></div>
+    <div class="neon yellow"><h3>Your progress</h3><ul>
+      <li>Without an account, progress and drafts are saved in this browser only.</li>
+      <li>Sign in with email, GitHub or Google to keep your XP, finished lessons and drafts across devices.</li>
+      <li>We store your email, your progress and your drafts. Nothing else, and we never sell or share it.</li>
+      <li>You can reset your progress any time from the footer.</li>
+    </ul></div>
+    <div class="neon purple"><h3>Languages</h3><ul>
+      <li>JavaScript runs natively. TypeScript is compiled by the official TypeScript compiler.</li>
+      <li>Python runs on Skulpt, a Python 3 interpreter written in JavaScript. It covers what the lessons need but not all of Python.</li>
+      <li>Java uses OpenJDK's javac and TeaVM, Go uses the real Go compiler, and C# uses Roslyn and the .NET runtime. All three are compiled to WebAssembly.</li>
+      <li>The first Java, Go or C# run downloads the compiler (tens of MB) and takes a few seconds. After that it's cached.</li>
+    </ul></div>
+    <div class="neon"><h3>Where the facts come from</h3><ul>
+      <li>Explainers are checked against official documentation: MDN, kubernetes.io, docs.docker.com, git-scm.com, redis.io, postgresql.org, the Python docs and the relevant RFCs.</li>
+      <li>Each explainer links to its sources under "Read more".</li>
+      <li>Numbers marked "example" are illustrative. Real timings depend on your hardware, network and data.</li>
+      <li>Spotted a mistake? Open an issue on the project's GitHub.</li>
+    </ul></div>
+  </div>
+  <h3 class="sec-title">Open-source software inside</h3>
+  <div class="tablewrap" style="margin-top:12px"><table>
+    <thead><tr><th>Part</th><th>Project</th><th>License</th></tr></thead>
+    <tbody>
+      <tr><td>Java compiler</td><td>OpenJDK javac, TeaVM, packaged by WASM-OJ</td><td>GPL-2.0 with Classpath Exception, Apache-2.0, MIT</td></tr>
+      <tr><td>Go compiler</td><td>The Go toolchain, packaged by WASM-OJ, run with Wasmer</td><td>BSD-3-Clause, MIT</td></tr>
+      <tr><td>C# compiler</td><td>Roslyn and .NET, packaged by WasmSharp</td><td>MIT, Apache-2.0</td></tr>
+      <tr><td>Python</td><td>Skulpt</td><td>MIT / PSF</td></tr>
+      <tr><td>TypeScript</td><td>TypeScript compiler</td><td>Apache-2.0</td></tr>
+      <tr><td>Accounts</td><td>Supabase</td><td>Apache-2.0 client</td></tr>
+      <tr><td>Fonts</td><td>Fredoka, Nunito, Architects Daughter, JetBrains Mono (Fontsource)</td><td>SIL Open Font License</td></tr>
+    </tbody></table></div>
+  <p class="muted" style="margin-top:12px;font-size:.9rem">Each runtime ships with its full license texts next to its files.</p>
+</section>
+</main>
+
+<footer><div class="wrap"><span id="saveNote">KnitStack is free. Progress saves in this browser.</span> <button class="btn btn-ghost btn-sm" id="resetBtn" style="margin-left:8px">Reset progress</button></div></footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dTitle"></aside>
+
+<!-- Starter project files (shown in the lab editor) -->
+<textarea hidden id="f-cart-index">&lt;!-- index.html · given --&gt;
+&lt;main id="app"&gt;
+  &lt;header&gt;Burger Bros · Checkout&lt;/header&gt;
+  &lt;section id="products"&gt;&lt;/section&gt;
+  &lt;aside id="cart"&gt;&lt;/aside&gt;
+&lt;/main&gt;
+&lt;script type="module" src="ui.js"&gt;&lt;/script&gt;</textarea>
+<textarea hidden id="f-cart-products">// products.js · given
+export const PRODUCTS = [
+  { id: "burger", name: "Smash burger", price: 12.90 },
+  { id: "fries",  name: "Fries",        price: 3.50 },
+  { id: "shake",  name: "Shake",        price: 5.00 },
+];</textarea>
+<textarea hidden id="f-cart-ui">// ui.js · given
+// Rendering and click handling are done for you.
+// This file only calls the three functions in cart.js.
+import { addItem, removeItem, cartTotal } from "./cart.js";
+import { PRODUCTS } from "./products.js";
+
+const products = document.querySelector("#products");
+const cartEl = document.querySelector("#cart");
+let cart = [];
+
+function render() {
+  products.innerHTML = PRODUCTS.map(p =>
+    `&lt;button data-add="${p.id}"&gt;${p.name} $${p.price}&lt;/button&gt;`
+  ).join("");
+
+  cartEl.innerHTML = cart.map(i =>
+    `&lt;li&gt;${i.name} × ${i.qty}
+       &lt;button data-remove="${i.id}"&gt;✕&lt;/button&gt;&lt;/li&gt;`
+  ).join("") + `&lt;b&gt;Total $${cartTotal(cart).toFixed(2)}&lt;/b&gt;`;
+}
+
+document.addEventListener("click", (e) =&gt; {
+  const { add, remove } = e.target.dataset;
+  if (add) cart = addItem(cart, PRODUCTS.find(p =&gt; p.id === add));
+  if (remove) cart = removeItem(cart, remove);
+  render();
+});
+
+render();</textarea>
+<textarea hidden id="f-cart-core">// cart.js · YOUR CORE CODE
+// A cart is an array of { id, name, price, qty }.
+// ui.js calls these three functions. Write them.
+
+// TODO 1: addItem
+// If the product is already in the cart, add 1 to its qty.
+// Otherwise add it with qty: 1. Return the cart.
+export function addItem(cart, product) {
+  // your code here
+}
+
+// TODO 2: removeItem
+// Return the cart without the item whose id matches.
+export function removeItem(cart, id) {
+  // your code here
+}
+
+// TODO 3: cartTotal
+// Sum of price × qty for every item. An empty cart is 0.
+export function cartTotal(cart) {
+  // your code here
+}</textarea>
+<textarea hidden id="f-cart-test">// cart.test.js · given (read only)
+import { addItem, removeItem, cartTotal } from "./cart.js";
+
+const burger = { id: "burger", name: "Smash burger", price: 12.90 };
+
+test("addItem puts a new product in with qty 1", () =&gt; {
+  expect(addItem([], burger)).toEqual([{ ...burger, qty: 1 }]);
+});
+
+test("addItem bumps qty when the product is already there", () =&gt; {
+  const cart = addItem(addItem([], burger), burger);
+  expect(cart[0].qty).toBe(2);
+});
+
+test("removeItem drops the matching id", () =&gt; {
+  expect(removeItem([{ ...burger, qty: 1 }], "burger")).toEqual([]);
+});
+
+test("cartTotal is price × qty, summed", () =&gt; {
+  expect(cartTotal([{ price: 3, qty: 1 }, { price: 4.5, qty: 2 }])).toBe(12);
+});
+
+test("cartTotal of an empty cart is 0", () =&gt; {
+  expect(cartTotal([])).toBe(0);
+});</textarea>
+
+<textarea hidden id="f-search-index">&lt;!-- index.html · given --&gt;
+&lt;main id="app"&gt;
+  &lt;input id="q" placeholder="Search docs…" /&gt;
+  &lt;ul id="results"&gt;&lt;/ul&gt;
+  &lt;small id="stats"&gt;&lt;/small&gt;
+&lt;/main&gt;
+&lt;script type="module" src="search-ui.js"&gt;&lt;/script&gt;</textarea>
+<textarea hidden id="f-search-api">// api.js · given
+// Pretend backend. Every call costs money, so we count them.
+const DOCS = ["react", "redux", "remix", "rust", "ruby", "rails",
+              "redis", "regex", "rest api", "react native"];
+export let calls = 0;
+
+export function searchApi(query) {
+  calls++;
+  return DOCS.filter(d =&gt; d.startsWith(query.toLowerCase()));
+}</textarea>
+<textarea hidden id="f-search-ui">// search-ui.js · given
+import { searchApi, calls } from "./api.js";
+import { debounce } from "./debounce.js";
+
+let keystrokes = 0;
+
+const runSearch = debounce((query) =&gt; {
+  results.innerHTML = searchApi(query).map(r =&gt; `&lt;li&gt;${r}&lt;/li&gt;`).join("");
+  stats.textContent = `${keystrokes} keystrokes · ${calls} API calls`;
+}, 300);
+
+q.addEventListener("input", (e) =&gt; {
+  keystrokes++;
+  runSearch(e.target.value);
+});</textarea>
+<textarea hidden id="f-search-core">// debounce.js · YOUR CORE CODE
+// search-ui.js wraps the API call in debounce(fn, 300).
+// Right now every keystroke hits the API. Fix that.
+
+// TODO 1: wait until calls stop for `ms` milliseconds,
+//         then call fn once.
+// TODO 2: pass fn the arguments from the LATEST call.
+export function debounce(fn, ms) {
+  return function (...args) {
+    fn(...args);
+  };
+}</textarea>
+<textarea hidden id="f-search-test">// debounce.test.js · given (read only)
+// Uses a fake clock, so time only moves when we say so.
+import { debounce } from "./debounce.js";
+
+test("no call before the wait ends", () =&gt; {
+  const d = debounce(spy, 100);
+  d(); clock.tick(50);
+  expect(spy).toHaveBeenCalledTimes(0);
+});
+
+test("one call after rapid typing", () =&gt; {
+  d(); clock.tick(30); d(); clock.tick(30); d(); clock.tick(100);
+  expect(spy).toHaveBeenCalledTimes(1);
+});
+
+test("uses the latest arguments", () =&gt; {
+  d("r"); d("re"); d("rea"); clock.tick(100);
+  expect(spy).toHaveBeenCalledWith("rea");
+});</textarea>
+
+<!-- TypeScript starter files -->
+<textarea hidden id="f-cart-products-ts">// products.ts · given
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export const PRODUCTS: Product[] = [
+  { id: "burger", name: "Smash burger", price: 12.90 },
+  { id: "fries",  name: "Fries",        price: 3.50 },
+  { id: "shake",  name: "Shake",        price: 5.00 },
+];</textarea>
+<textarea hidden id="f-cart-ui-ts">// ui.ts · given
+// Rendering and click handling are done for you.
+import { addItem, removeItem, cartTotal, CartItem } from "./cart";
+import { PRODUCTS } from "./products";
+
+const products = document.querySelector("#products")!;
+const cartEl = document.querySelector("#cart")!;
+let cart: CartItem[] = [];
+
+function render(): void {
+  products.innerHTML = PRODUCTS.map(p =>
+    `&lt;button data-add="${p.id}"&gt;${p.name} $${p.price}&lt;/button&gt;`
+  ).join("");
+  cartEl.innerHTML = cart.map(i =>
+    `&lt;li&gt;${i.name} × ${i.qty}
+       &lt;button data-remove="${i.id}"&gt;✕&lt;/button&gt;&lt;/li&gt;`
+  ).join("") + `&lt;b&gt;Total $${cartTotal(cart).toFixed(2)}&lt;/b&gt;`;
+}
+
+document.addEventListener("click", (e: MouseEvent) =&gt; {
+  const { add, remove } = (e.target as HTMLElement).dataset;
+  if (add) cart = addItem(cart, PRODUCTS.find(p =&gt; p.id === add)!);
+  if (remove) cart = removeItem(cart, remove);
+  render();
+});
+
+render();</textarea>
+<textarea hidden id="f-cart-core-ts">// cart.ts · YOUR CORE CODE
+import type { Product } from "./products";
+
+export interface CartItem extends Product {
+  qty: number;
+}
+
+// TODO 1: addItem
+// If the product is already in the cart, add 1 to its qty.
+// Otherwise add it with qty: 1. Return the cart.
+export function addItem(cart: CartItem[], product: Product): CartItem[] {
+  // your code here
+}
+
+// TODO 2: removeItem
+// Return the cart without the item whose id matches.
+export function removeItem(cart: CartItem[], id: string): CartItem[] {
+  // your code here
+}
+
+// TODO 3: cartTotal
+// Sum of price × qty for every item. An empty cart is 0.
+export function cartTotal(cart: CartItem[]): number {
+  // your code here
+}</textarea>
+<textarea hidden id="f-cart-test-ts">// cart.test.ts · given (read only)
+import { addItem, removeItem, cartTotal } from "./cart";
+
+const burger = { id: "burger", name: "Smash burger", price: 12.90 };
+
+test("addItem puts a new product in with qty 1", () =&gt; {
+  expect(addItem([], burger)).toEqual([{ ...burger, qty: 1 }]);
+});
+
+test("addItem bumps qty when the product is already there", () =&gt; {
+  const cart = addItem(addItem([], burger), burger);
+  expect(cart[0].qty).toBe(2);
+});
+
+test("removeItem drops the matching id", () =&gt; {
+  expect(removeItem([{ ...burger, qty: 1 }], "burger")).toEqual([]);
+});
+
+test("cartTotal is price × qty, summed", () =&gt; {
+  expect(cartTotal([{ ...burger, price: 3, qty: 1 }, { ...burger, price: 4.5, qty: 2 }])).toBe(12);
+});
+
+test("cartTotal of an empty cart is 0", () =&gt; {
+  expect(cartTotal([])).toBe(0);
+});</textarea>
+<textarea hidden id="f-search-api-ts">// api.ts · given
+// Pretend backend. Every call costs money, so we count them.
+const DOCS: string[] = ["react", "redux", "remix", "rust", "ruby", "rails",
+                        "redis", "regex", "rest api", "react native"];
+export let calls = 0;
+
+export function searchApi(query: string): string[] {
+  calls++;
+  return DOCS.filter(d =&gt; d.startsWith(query.toLowerCase()));
+}</textarea>
+<textarea hidden id="f-search-ui-ts">// search-ui.ts · given
+import { searchApi, calls } from "./api";
+import { debounce } from "./debounce";
+
+const q = document.querySelector&lt;HTMLInputElement&gt;("#q")!;
+const results = document.querySelector("#results")!;
+const stats = document.querySelector("#stats")!;
+let keystrokes = 0;
+
+const runSearch = debounce((query: string) =&gt; {
+  results.innerHTML = searchApi(query).map(r =&gt; `&lt;li&gt;${r}&lt;/li&gt;`).join("");
+  stats.textContent = `${keystrokes} keystrokes · ${calls} API calls`;
+}, 300);
+
+q.addEventListener("input", () =&gt; {
+  keystrokes++;
+  runSearch(q.value);
+});</textarea>
+<textarea hidden id="f-search-core-ts">// debounce.ts · YOUR CORE CODE
+// search-ui.ts wraps the API call in debounce(fn, 300).
+// Right now every keystroke hits the API. Fix that.
+
+// TODO 1: wait until calls stop for `ms` milliseconds,
+//         then call fn once.
+// TODO 2: pass fn the arguments from the LATEST call.
+export function debounce&lt;A extends unknown[]&gt;(
+  fn: (...args: A) =&gt; void,
+  ms: number
+): (...args: A) =&gt; void {
+  return function (...args: A) {
+    fn(...args);
+  };
+}</textarea>
+<textarea hidden id="f-search-test-ts">// debounce.test.ts · given (read only)
+// Uses a fake clock, so time only moves when we say so.
+import { debounce } from "./debounce";
+
+test("no call before the wait ends", () =&gt; {
+  const d = debounce(spy, 100);
+  d(); clock.tick(50);
+  expect(spy).toHaveBeenCalledTimes(0);
+});
+
+test("one call after rapid typing", () =&gt; {
+  d(); clock.tick(30); d(); clock.tick(30); d(); clock.tick(100);
+  expect(spy).toHaveBeenCalledTimes(1);
+});
+
+test("uses the latest arguments", () =&gt; {
+  d("r"); d("re"); d("rea"); clock.tick(100);
+  expect(spy).toHaveBeenCalledWith("rea");
+});</textarea>
+
+<!-- Python starter files -->
+<textarea hidden id="f-cart-products-py"># products.py · given
+PRODUCTS = [
+    {"id": "burger", "name": "Smash burger", "price": 12.90},
+    {"id": "fries",  "name": "Fries",        "price": 3.50},
+    {"id": "shake",  "name": "Shake",        "price": 5.00},
+]</textarea>
+<textarea hidden id="f-cart-app-py"># app.py · given
+# A small Flask app. Routes and templates are done for you.
+# Each route only calls the three functions in cart.py.
+from flask import Flask, render_template, redirect, session
+from products import PRODUCTS
+from cart import add_item, remove_item, cart_total
+
+app = Flask(__name__)
+
+
+def find(product_id):
+    return next(p for p in PRODUCTS if p["id"] == product_id)
+
+
+@app.get("/")
+def checkout():
+    cart = session.get("cart", [])
+    return render_template("checkout.html", products=PRODUCTS,
+                           cart=cart, total=cart_total(cart))
+
+
+@app.post("/add/&lt;product_id&gt;")
+def add(product_id):
+    session["cart"] = add_item(session.get("cart", []), dict(find(product_id)))
+    return redirect("/")
+
+
+@app.post("/remove/&lt;product_id&gt;")
+def remove(product_id):
+    session["cart"] = remove_item(session.get("cart", []), product_id)
+    return redirect("/")</textarea>
+<textarea hidden id="f-cart-core-py"># cart.py · YOUR CORE CODE
+# A cart is a list of dicts: {"id", "name", "price", "qty"}.
+# app.py calls these three functions. Write them.
+
+# TODO 1: add_item
+# If the product is already in the cart, add 1 to its qty.
+# Otherwise add it with qty 1. Return the cart.
+def add_item(cart, product):
+    pass
+
+
+# TODO 2: remove_item
+# Return the cart without the item whose id matches.
+def remove_item(cart, item_id):
+    pass
+
+
+# TODO 3: cart_total
+# Sum of price * qty for every item. An empty cart is 0.
+def cart_total(cart):
+    pass</textarea>
+<textarea hidden id="f-cart-test-py"># test_cart.py · given (read only)
+from cart import add_item, remove_item, cart_total
+
+BURGER = {"id": "burger", "name": "Smash burger", "price": 12.90}
+
+
+def test_add_new_item_has_qty_1():
+    assert add_item([], dict(BURGER)) == [{**BURGER, "qty": 1}]
+
+
+def test_add_same_item_bumps_qty():
+    cart = add_item(add_item([], dict(BURGER)), dict(BURGER))
+    assert cart[0]["qty"] == 2
+
+
+def test_remove_drops_matching_id():
+    assert remove_item([{**BURGER, "qty": 1}], "burger") == []
+
+
+def test_total_is_price_times_qty():
+    assert cart_total([{"price": 3, "qty": 1}, {"price": 4.5, "qty": 2}]) == 12
+
+
+def test_empty_cart_total_is_0():
+    assert cart_total([]) == 0</textarea>
+<textarea hidden id="f-search-api-py"># api.py · given
+# Pretend backend. Every call costs money, so we count them.
+DOCS = ["react", "redux", "remix", "rust", "ruby", "rails",
+        "redis", "regex", "rest api", "react native"]
+calls = 0
+
+
+def search_api(query):
+    global calls
+    calls += 1
+    return [d for d in DOCS if d.startswith(query.lower())]
+</textarea>
+<textarea hidden id="f-search-timers-py"># timers.py · given
+# Like setTimeout / clearTimeout in the browser.
+# The tests swap in a fake clock so time only moves when they say so.
+
+def set_timeout(callback, ms):
+    """Run callback after ms milliseconds. Returns a timer id."""
+    ...
+
+
+def clear_timeout(timer_id):
+    """Cancel a timer that hasn't fired yet."""
+    ...</textarea>
+<textarea hidden id="f-search-ui-py"># search_service.py · given
+from api import search_api
+import api
+from debounce import debounce
+
+keystrokes = 0
+
+
+def show_results(query):
+    results = search_api(query)
+    print(f"{query!r}: {results} · {api.calls} API calls")
+
+
+run_search = debounce(show_results, 300)
+
+
+def on_keystroke(text):
+    global keystrokes
+    keystrokes += 1
+    run_search(text)</textarea>
+<textarea hidden id="f-search-core-py"># debounce.py · YOUR CORE CODE
+# search_service.py wraps the API call in debounce(fn, 300).
+# Right now every keystroke hits the API. Fix that.
+from timers import set_timeout, clear_timeout
+
+
+class Debouncer:
+    def __init__(self, fn, ms):
+        self.fn = fn
+        self.ms = ms
+        self.timer = None
+
+    # TODO 1: wait until calls stop for self.ms milliseconds,
+    #         then call self.fn once.
+    # TODO 2: pass self.fn the arguments from the LATEST call.
+    def __call__(self, *args):
+        self.fn(*args)
+
+
+def debounce(fn, ms):   # given
+    return Debouncer(fn, ms)</textarea>
+<textarea hidden id="f-search-test-py"># test_debounce.py · given (read only)
+# Uses a fake clock, so time only moves when we say so.
+from debounce import debounce
+from fake_clock import tick, reset_clock
+
+
+def test_no_call_before_wait_ends():
+    calls = []
+    d = debounce(lambda *a: calls.append(a), 100)
+    d(); tick(50)
+    assert len(calls) == 0
+
+
+def test_one_call_after_rapid_typing():
+    calls = []
+    d = debounce(lambda *a: calls.append(a), 100)
+    d(); tick(30); d(); tick(30); d(); tick(100)
+    assert len(calls) == 1
+
+
+def test_uses_latest_arguments():
+    calls = []
+    d = debounce(lambda *a: calls.append(a), 100)
+    d("r"); d("re"); d("rea"); tick(100)
+    assert calls == [("rea",)]</textarea>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

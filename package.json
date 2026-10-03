@@ -1,0 +1,31 @@
+{
+  "name": "knitstack",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "KnitStack: a free, self-paced, project-based coding academy.",
+  "scripts": {
+    "runtimes": "node scripts/copy-runtimes.mjs",
+    "dev": "npm run runtimes && vite",
+    "build": "npm run runtimes && vite build",
+    "preview": "vite preview",
+    "test": "node tests/sim.cjs"
+  },
+  "dependencies": {
+    "@fontsource/architects-daughter": "^5.2.5",
+    "@fontsource/fredoka": "^5.2.5",
+    "@fontsource/jetbrains-mono": "^5.2.5",
+    "@fontsource/nunito": "^5.2.5",
+    "@supabase/supabase-js": "^2.58.0"
+  },
+  "devDependencies": {
+    "@wasm-oj/browser": "0.2.2",
+    "@wasm-oj/toolchain-go": "0.2.0",
+    "@wasm-oj/toolchain-java": "0.2.0",
+    "@wasmsharp/core": "0.10.2",
+    "comlink": "4.4.2",
+    "skulpt": "1.2.0",
+    "typescript": "5.4.5",
+    "vite": "^7.1.0"
+  }
+}
