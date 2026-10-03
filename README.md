@@ -33,14 +33,14 @@ Without Supabase settings the site works fully, and progress saves in the browse
 
 1. Create a free project at https://supabase.com.
 2. In the SQL editor, run `supabase/schema.sql`. It creates the `progress` table with row level security, so each user can only read and write their own row.
-3. Under Authentication → Providers, email is on by default. To add GitHub or Google, enable the provider and paste the client ID and secret from a GitHub OAuth app or Google Cloud OAuth client. Use the callback URL Supabase shows you.
+3. Under Authentication → Providers, email is on by default. To add GitHub or Google, enable the provider and paste the client ID and secret from a GitHub OAuth app or Google Cloud OAuth client. Use the callback URL Supabase shows you. Then set `VITE_AUTH_PROVIDERS` (for example `github,google`) so the site shows those buttons; without it, only email sign-in is offered.
 4. Under Authentication → URL Configuration, set the Site URL to your deployed address and add `http://localhost:5173` to the redirect URLs.
 5. Copy `.env.example` to `.env.local` and fill in `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from Project Settings → API. The anon key is meant to be public; the RLS policies are what protect the data.
 
 ## Deploy to Vercel
 
 1. Import this repository at https://vercel.com/new. The settings come from `vercel.json` (`npm run build`, output `dist`).
-2. Add the two `VITE_SUPABASE_*` variables under Project Settings → Environment Variables if you use accounts.
+2. Add the two `VITE_SUPABASE_*` variables (and `VITE_AUTH_PROVIDERS` if you enabled GitHub or Google) under Project Settings → Environment Variables if you use accounts.
 3. Deploy. Vercel builds from Git, so the compiler files (one is 29 MB) are fine there. Cloudflare Pages won't work because of its 25 MiB per-file limit.
 
 ## Adding a language

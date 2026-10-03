@@ -4,6 +4,9 @@ import { createClient } from "@supabase/supabase-js";
 
 const url = import.meta.env.VITE_SUPABASE_URL, key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export const supabase = url && key ? createClient(url, key) : null;
+// OAuth buttons to show, e.g. "github,google". List only providers enabled in Supabase → Authentication → Providers.
+const PROVIDERS = { github: "GitHub", google: "Google" };
+const providers = (import.meta.env.VITE_AUTH_PROVIDERS || "").split(",").map(p => p.trim()).filter(p => PROVIDERS[p]);
 
 let user = null, hooks = null, pushTimer = null, applying = false;
 
@@ -73,11 +76,10 @@ function openDialog() {
       <span class="hand c-cyan">Free account</span>
       <h3>Keep your progress everywhere</h3>
       <p class="muted">Your XP, finished lessons and drafts follow you to any device. That's all we store.</p>
-      <div class="auth-oauth">
-        <button class="btn btn-ghost" data-provider="github">Continue with GitHub</button>
-        <button class="btn btn-ghost" data-provider="google">Continue with Google</button>
+      ${providers.length ? `<div class="auth-oauth">
+        ${providers.map(p => `<button class="btn btn-ghost" data-provider="${p}">Continue with ${PROVIDERS[p]}</button>`).join("")}
       </div>
-      <div class="auth-or"><span>or get a sign-in link by email</span></div>
+      <div class="auth-or"><span>or get a sign-in link by email</span></div>` : ""}
       <form class="auth-email">
         <input type="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
         <button class="btn btn-main" type="submit">Email me a link</button>
